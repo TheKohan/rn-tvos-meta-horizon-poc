@@ -21,12 +21,14 @@
       "edgeToEdgeEnabled": true,
       "splash": {
         "image": "./assets/images/icon-1920x720.png"
-      }
+      },
+      "package": "com.anonymous.rntvplayground"
     },
     "ios": {
       "splash": {
         "image": "./assets/images/icon-1920x720.png"
-      }
+      },
+      "bundleIdentifier": "com.anonymous.rntvplayground"
     },
     "newArchEnabled": true,
     "name": "rn-tv-playground",
