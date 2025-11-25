@@ -47,32 +47,36 @@ const Hero = () => {
   );
 };
 
-const GridItem = memo(({ number }: { number: number }) => {
-  const backgroundColor = useMemo(() => getRandomColor(), []);
+const GridItem = memo(
+  ({ number, ref }: { number: number; ref?: React.RefObject<View> }) => {
+    const backgroundColor = useMemo(() => getRandomColor(), []);
 
-  return (
-    <TouchableOpacity
-      style={{
-        backgroundColor,
-        padding: 10,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 10,
-        margin: 10,
-        width: 100,
-      }}
-    >
-      <Text style={styles.text}>{number}</Text>
-    </TouchableOpacity>
-  );
-});
+    return (
+      <TouchableOpacity
+        style={{
+          backgroundColor,
+          padding: 10,
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 10,
+          margin: 10,
+          width: 100,
+        }}
+        ref={ref}
+      >
+        <Text style={styles.text}>{number}</Text>
+      </TouchableOpacity>
+    );
+  }
+);
 
 const Grid = () => {
+  const firstItemRef = useRef<View>(null);
   return (
     <View>
-      <TVFocusGuideView trapFocusLeft>
+      <TVFocusGuideView trapFocusLeft destinations={[firstItemRef.current]}>
         <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-          <GridItem number={1} />
+          <GridItem number={1} ref={firstItemRef} />
           <GridItem number={2} />
           <GridItem number={3} />
           <GridItem number={4} />
