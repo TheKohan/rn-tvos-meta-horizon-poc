@@ -7,11 +7,12 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import React, { memo, useRef } from "react";
+import React, { memo, useRef, useMemo } from "react";
 import { useNavigation } from "../navigation/useNavigation";
 import { RootStackParamList } from "../navigation/navigator";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Movie, movies } from "../mock/movies";
+import CarouselGrid, { CarouselRow } from "../components/CarouselGrid";
 
 const Hero = memo(
   ({ onPress, movie }: { onPress: () => void; movie: Movie }) => {
@@ -25,7 +26,7 @@ const Hero = memo(
               borderRadius: 10,
             }}
             source={{
-              uri: movie.image,
+              uri: movie.backgroundImage,
             }}
           />
           <TouchableOpacity style={styles.playButton} onPress={onPress}>
@@ -36,70 +37,6 @@ const Hero = memo(
     );
   }
 );
-
-const MovieItem = memo(
-  ({
-    movie,
-    ref,
-    onPress,
-  }: {
-    movie: Movie;
-    ref?: React.RefObject<View>;
-    onPress: () => void;
-  }) => {
-    return (
-      <TouchableOpacity
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 10,
-          overflow: "hidden",
-          margin: 10,
-        }}
-        ref={ref}
-        onPress={onPress}
-      >
-        <Image
-          style={{
-            width: 200,
-            height: 100,
-          }}
-          source={{
-            uri: movie.image,
-          }}
-        />
-      </TouchableOpacity>
-    );
-  }
-);
-
-const MoviesGrid = ({ movies }: { movies: Movie[] }) => {
-  const firstItemRef = useRef<View>(null);
-  const navigation = useNavigation();
-
-  return (
-    <View>
-      <TVFocusGuideView trapFocusLeft destinations={[firstItemRef.current]}>
-        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-          {movies.map((movie) => (
-            <MovieItem
-              key={movie.id}
-              movie={movie}
-              ref={firstItemRef}
-              onPress={() => navigateToDetail(movie.id.toString(), navigation)}
-            />
-          ))}
-        </View>
-      </TVFocusGuideView>
-
-      <View>
-        <TouchableOpacity>
-          <Text>Outside Button</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-};
 
 const NavItem = ({
   children,
@@ -141,6 +78,31 @@ const Nav = () => {
 export default function HomeScreen() {
   const navigation = useNavigation();
 
+  const carouselRows: CarouselRow[] = useMemo(() => {
+    return [
+      {
+        title: "Trending Now",
+        movies: movies.slice(0, 5),
+      },
+      {
+        title: "Popular on TV",
+        movies: movies.slice(5, 10),
+      },
+      {
+        title: "New Releases",
+        movies: movies.slice(10, 15),
+      },
+      {
+        title: "Watch Again",
+        movies: movies.slice(15, 20),
+      },
+      {
+        title: "Top Picks for You",
+        movies: movies.slice(20, 25),
+      },
+    ];
+  }, []);
+
   return (
     <View style={styles.container}>
       <TVFocusGuideView autoFocus>
@@ -153,7 +115,7 @@ export default function HomeScreen() {
                 navigateToDetail(movies[0].id.toString(), navigation)
               }
             />
-            <MoviesGrid movies={Array.from(movies)} />
+            <CarouselGrid rows={carouselRows} />
           </ScrollView>
         </View>
       </TVFocusGuideView>
@@ -171,7 +133,7 @@ const navigateToDetail = (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#5c5c5c",
     paddingHorizontal: 24,
   },
   hero: {
