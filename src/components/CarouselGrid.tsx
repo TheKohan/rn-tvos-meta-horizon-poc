@@ -9,11 +9,13 @@ import {
   TVFocusGuideView,
   Animated,
 } from "react-native";
-import { Pressable } from "react-native-gesture-handler";
+import { Pressable as GesturePressable } from "react-native-gesture-handler";
+import { Pressable as NativePressable } from "react-native";
 import { Movie } from "../mock/movies";
 import { useNavigation } from "../navigation/useNavigation";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation/navigator";
+import { isMetaQuestDevice } from "../util/isMetaQuestDevice";
 
 export type CarouselRow = {
   title: string;
@@ -26,6 +28,8 @@ type CarouselGridProps = {
   itemWidth?: number;
   itemHeight?: number;
 };
+
+const Pressable = isMetaQuestDevice() ? GesturePressable : NativePressable;
 
 const CarouselItem = memo(
   React.forwardRef<
@@ -160,6 +164,7 @@ export default function CarouselGrid({
     movieId: string,
     navigator: NativeStackNavigationProp<RootStackParamList>
   ) => {
+    console.log("movieId", movieId);
     navigator.navigate("Detail", { id: movieId });
   };
 
