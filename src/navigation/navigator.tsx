@@ -1,8 +1,6 @@
+import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationProp,
-} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/home";
 import DetailScreen from "../screens/detail";
 
@@ -11,20 +9,32 @@ export type RootStackParamList = {
   Detail: { id: string };
 };
 
+const screens = [
+  { name: "Home", component: HomeScreen },
+  { name: "Detail", component: DetailScreen },
+] as const;
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Navigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        id="RootStack"
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Detail" component={DetailScreen} />
-      </Stack.Navigator>
+      <View style={{ flex: 1 }}>
+        <Stack.Navigator
+          id="RootStack"
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          {screens.map((screen) => (
+            <Stack.Screen
+              key={screen.name}
+              name={screen.name as keyof RootStackParamList}
+              component={screen.component}
+            />
+          ))}
+        </Stack.Navigator>
+      </View>
     </NavigationContainer>
   );
 }

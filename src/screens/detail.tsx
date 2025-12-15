@@ -11,6 +11,7 @@ import {
 import { useRoute } from "@react-navigation/native";
 import { useMemo } from "react";
 import { Movie, movies } from "../mock/movies";
+import { ScreenLayout } from "../components/ScreenLayout";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -29,50 +30,55 @@ export default function DetailScreen() {
   };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <TVFocusGuideView autoFocus>
-        {/* Hero Section with Backdrop */}
-        <View style={styles.heroContainer}>
-          <Image
-            source={{ uri: movie.backgroundImage }}
-            style={styles.backdrop}
-            resizeMode="cover"
-          />
-          <View style={styles.backdropOverlay} />
+    <ScreenLayout>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.content}
+      >
+        <TVFocusGuideView autoFocus>
+          {/* Hero Section with Backdrop */}
+          <View style={styles.heroContainer}>
+            <Image
+              source={{ uri: movie.backgroundImage }}
+              style={styles.backdrop}
+              resizeMode="cover"
+            />
+            <View style={styles.backdropOverlay} />
 
-          {/* Content Overlay */}
-          <View style={styles.heroContent}>
-            <View style={styles.movieInfo}>
-              <Text style={styles.title}>{movie.title}</Text>
-              <Text style={styles.description}>{movie.description}</Text>
+            {/* Content Overlay */}
+            <View style={styles.heroContent}>
+              <View style={styles.movieInfo}>
+                <Text style={styles.title}>{movie.title}</Text>
+                <Text style={styles.description}>{movie.description}</Text>
 
-              {/* Action Buttons */}
-              <View style={styles.actionButtons}>
-                <TouchableOpacity
-                  style={styles.playButton}
-                  onPress={handlePlay}
-                  activeOpacity={0.8}
-                >
-                  <Text style={styles.playButtonText}>▶ Play</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.secondaryButton}
-                  activeOpacity={0.8}
-                >
-                  <Text style={styles.secondaryButtonText}>+ My List</Text>
-                </TouchableOpacity>
+                {/* Action Buttons */}
+                <View style={styles.actionButtons}>
+                  <TouchableOpacity
+                    style={styles.playButton}
+                    onPress={handlePlay}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.playButtonText}>▶ Play</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.secondaryButton}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.secondaryButtonText}>+ My List</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
-        </View>
 
-        {/* Additional Info Section */}
-        <View style={styles.infoSection}>
-          <Text style={styles.sectionTitle}>About</Text>
-          <Text style={styles.infoText}>{movie.description}</Text>
-        </View>
-      </TVFocusGuideView>
-    </ScrollView>
+          {/* Additional Info Section */}
+          <View style={styles.infoSection}>
+            <Text style={styles.sectionTitle}>About</Text>
+            <Text style={styles.infoText}>{movie.description}</Text>
+          </View>
+        </TVFocusGuideView>
+      </ScrollView>
+    </ScreenLayout>
   );
 }
 

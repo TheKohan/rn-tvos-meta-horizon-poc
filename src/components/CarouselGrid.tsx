@@ -9,6 +9,7 @@ import {
   TVFocusGuideView,
   Animated,
 } from "react-native";
+import { Pressable } from "react-native-gesture-handler";
 import { Movie } from "../mock/movies";
 import { useNavigation } from "../navigation/useNavigation";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -68,7 +69,7 @@ const CarouselItem = memo(
           },
         ]}
       >
-        <TouchableOpacity
+        <Pressable
           ref={ref}
           style={[
             styles.carouselItem,
@@ -81,14 +82,15 @@ const CarouselItem = memo(
           onPress={onPress}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          activeOpacity={1}
+          onHoverIn={handleFocus}
+          onHoverOut={handleBlur}
         >
           <Image
             source={{ uri: movie.poster }}
             style={styles.carouselItemImage}
             resizeMode="cover"
           />
-        </TouchableOpacity>
+        </Pressable>
       </Animated.View>
     );
   })

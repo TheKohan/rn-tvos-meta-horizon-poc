@@ -108,7 +108,7 @@ export default function HomeScreen() {
       <TVFocusGuideView autoFocus>
         <View style={{ flexDirection: "row", gap: 10 }}>
           <Nav />
-          <ScrollView style={{ flex: 1 }}>
+          <ScrollView>
             <Hero
               movie={movies[0]}
               onPress={() =>
