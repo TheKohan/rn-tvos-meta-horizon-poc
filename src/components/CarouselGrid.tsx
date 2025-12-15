@@ -29,6 +29,7 @@ type CarouselGridProps = {
   itemHeight?: number;
 };
 
+// Gesture handler pressable is not compatible with TV for some reason (onPress doesn't work)
 const Pressable = isMetaQuestDevice() ? GesturePressable : NativePressable;
 
 const CarouselItem = memo(
