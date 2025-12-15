@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack"; // Changed from native-stack
 import HomeScreen from "../screens/home";
 import DetailScreen from "../screens/detail";
 
@@ -14,7 +14,7 @@ const screens = [
   { name: "Detail", component: DetailScreen },
 ] as const;
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function Navigator() {
   return (
