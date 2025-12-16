@@ -39,8 +39,8 @@ Obvious design differences (bigger buttons may be needed as well as properly sca
 
 | HorizonOS | AndroidTV |
 |-----------|-----------|
-| [<video alt="HorizonOS Video" src="./assets/videos/1e0f6d28181c4d0990b91e559527af0b.MP4" width="400"/>](./asset/videos/horizon.mp4) | [<video alt="AndroidTV Video" src="./assets/videos/IMG_2937.MOV" width="400"/>](./asset/videos/androidtv.mp4) |
+| <video width="400" alt="Quest" src="https://github.com/user-attachments/assets/66b78258-a77f-4ac8-9697-eb16b754aedc"/> | <video width="400" src="https://github.com/user-attachments/assets/2a441fef-ea52-438e-b125-e0f19ed7d57d"/> |
 
-*Click a thumbnail to watch the video demo.*
+
 
 
